@@ -1,3 +1,5 @@
+import { CategoryLayout } from "./cases/categories/components/category-layout"
+
 
 
 function App() {
@@ -5,7 +7,7 @@ function App() {
 
   return (
     <div className="wrapper">
-      
+      <CategoryLayout />
     </div>
   )
 }
