@@ -18,17 +18,17 @@ export const ProductService = {
 
 
     async getByID (id: string): Promise<ProductDTO>{
-        const result = await api.get(${_ENDPOINT}/${id});
+        const result = await api.get(`${_ENDPOINT}/${id}`);
         return result.data;
     },
 
     async update (id: string, product: ProductDTO): Promise<ProductDTO>{
-        const result = await api.put(${_ENDPOINT}/${id}, product);
+        const result = await api.put(`${_ENDPOINT}/${id}`, product);
         return result.data;
     },
       
     async delete (id: string): Promise<void>{
-        await api.delete(${_ENDPOINT}/${id});
+        await api.delete(`${_ENDPOINT}/${id}`);
     }
 
 }

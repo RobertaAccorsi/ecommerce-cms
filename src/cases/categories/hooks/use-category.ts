@@ -1,37 +1,64 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import type { CategoryDTO } from "../dto/category.dto";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CategoryService } from "../services/category.service";
+import { toast } from "react-toastify";
+import type { CategoryDTO } from "../dto/category.dto";
 
-export function useCategories() {
+export function useCategories(){
     return useQuery<CategoryDTO[]>({
-        queryKey: ["categories"],
-        queryFn: CategoryService.list,
-    })
+        queryKey: ['categories'],
+        queryFn: CategoryService.list
+    });
 }
 
-export function useCategory(id: string) {
+export function useCategory(id: string){
     return useQuery<CategoryDTO>({
-        queryKey: ["category", id],
-        queryFn: () => CategoryService.getById(id),
-        enabled: !!id,
-    })
+        queryKey: ['category'],
+        queryFn: ()=> CategoryService.getById(id),
+        enabled: !!id //or Boolean(id)
+    });
 }
 
+export function useCreateCategory(){
+    const queryClient = useQueryClient();
 
-export function useCreateCategory() {
     return useMutation<CategoryDTO, Error, Omit<CategoryDTO, 'id'>>({
         mutationFn: (category: Omit<CategoryDTO, 'id'>) => CategoryService.create(category),
-    });
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ['categories']})
+            toast.success('Registro adicionado com suesso!')
+        }, 
+        onError: (error) => {
+            toast.error(`Erro ao adicioanar: ${error.message}`)
+        }
+    })
 }
 
-export function useUpdateCategory() {
-    return useMutation<CategoryDTO, Error, { id: string, category: CategoryDTO }>({
-        mutationFn: ({ id, category }) => CategoryService.update(id, category),
-    });
+export function useUpdateCategory(){
+    const queryClient = useQueryClient();
+
+    return useMutation<CategoryDTO, Error, {id: string, category: CategoryDTO}>({
+        mutationFn: ({id, category}) => CategoryService.update(id, category),
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ['categories']})
+            toast.success('Registro alterado com suesso!')
+        }, 
+        onError: (error) => {
+            toast.error(`Erro ao alterar: ${error.message}`)
+        }
+    })
 }
 
-export function useDeleteCategory() {
+export function useDeleteCategory(){
+    const queryClient = useQueryClient();
+
     return useMutation<void, Error, string>({
         mutationFn: (id: string) => CategoryService.delete(id),
-    });
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ['categories']})
+            toast.success('Registro excluído com suesso!')
+        }, 
+        onError: (error) => {
+            toast.error(`Erro ao excluir: ${error.message}`)
+        }
+    })
 }

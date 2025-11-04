@@ -11,19 +11,26 @@ import {
 import { Button } from "../ui/button";
 import { useLocation, useNavigate } from "react-router-dom";
 import type { ReactNode } from "react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import {Trash2 } from "lucide-react";
+
 
 
 type SideBarFormProps = {
     title: string;
     children: ReactNode;
-    onSave: () => void;
+    onSave?: () => void;
+    onDelete?: () => void;
+    loading: boolean;
 }
 
 
 export function SideBarForm({ 
     title,
     children, 
-    onSave
+    onSave,
+    onDelete,
+    loading
 }: SideBarFormProps) {
 
     const navigate = useNavigate();
@@ -49,22 +56,46 @@ export function SideBarForm({
                     </SheetDescription>
                 </SheetHeader>
 
-                {children}
+                <div className="px-8">   
+                    {children}
+                </div>
 
-                <SheetFooter>
+
+                <SheetFooter className="flex flex-row justify-between">
                     <div className="flex flex-row">
                         <Button
+                            type="button"
                             onClick={onSave}
+                            disabled={loading}
                         >Salvar</Button>
 
                         <SheetClose>
                             <Button
                                 variant='outline'
+                                disabled={loading}
                             >
                                 Cancelar
                             </Button>
                         </SheetClose>
                     </div>
+                    {onDelete && (
+                        <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Button
+                                variant='destructive'
+                                size='icon'
+                                onClick={onDelete}
+                            >
+                                <Trash2 />
+                            </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            <p>Remover o registro</p>
+                        </TooltipContent>
+                    </Tooltip>
+
+                    )}
+                   
                 </SheetFooter>
             </SheetContent>
         </Sheet>

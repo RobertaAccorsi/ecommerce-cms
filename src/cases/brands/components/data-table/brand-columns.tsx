@@ -1,9 +1,8 @@
 import type { ColumnDef } from "@tanstack/react-table";
-import type { ProductDTO } from "../../dto/product.dto";
 import { DataTableAction } from "@/components/layout/data-table-actions";
+import type { BrandDTO } from "../../dto/brand.dto";
 
-
-export const ProductColumns: ColumnDef<ProductDTO>[] = [
+export const BrandColumns: ColumnDef<BrandDTO>[] = [
     {
         accessorKey: 'id',
         header: 'Id'
@@ -11,20 +10,19 @@ export const ProductColumns: ColumnDef<ProductDTO>[] = [
 
     {
         accessorKey: 'name',
-        header: 'Nome do Product'
-    }, 
-
-    {
+        header: 'Nome da Brand'
+    },
+        {
             accessorKey: 'actions',
             enableHiding: false, 
             cell: ({ row }) => {
-                const product= row.original;
+                const brand= row.original;
     
                 return(
                     <div className="flex justify-end mr-4">
-                        <DataTableAction itemId={product.id!}/>
+                        <DataTableAction itemId={brand.id!}/>
                     </div>
                 )
             }
         }
-];
+    ];

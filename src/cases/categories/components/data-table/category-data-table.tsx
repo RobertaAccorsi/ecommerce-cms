@@ -1,5 +1,5 @@
 import { DataTable } from "@/components/ui/data-table";
-import { categoryColumns } from "./category-columns";
+import { CategoryColumns } from "./category-columns";
 import { useCategories } from "../../hooks/use-category";
 
 export function CategoryDataTable(){
@@ -9,11 +9,10 @@ export function CategoryDataTable(){
     return(
         <div>
             { isLoading ? (
-                <p>Carregando</p>
+                <p>Carregando...</p>
             ) : (
-                <DataTable columns={categoryColumns} data={categories!}/>  
-            )}
-                      
+                <DataTable columns={CategoryColumns} data={categories!}/>    
+            )}        
         </div>
     )
 }
