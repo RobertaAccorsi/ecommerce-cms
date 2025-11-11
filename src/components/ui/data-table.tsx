@@ -1,11 +1,10 @@
-
 import {
- type ColumnDef,
+  type ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table"
- 
+
 import {
   Table,
   TableBody,
@@ -14,12 +13,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
- 
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
 }
- 
+
 export function DataTable<TData, TValue>({
   columns,
   data,
@@ -29,7 +28,7 @@ export function DataTable<TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
   })
- 
+
   return (
     <div className="overflow-hidden rounded-md border">
       <Table>

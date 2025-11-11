@@ -1,12 +1,13 @@
 import { api } from "../../../lib/axios";
-import type { CategoryDTO } from "../dto/category.dto"
+import type { CategoryDTO } from "../dto/category.dto";
+
 
 const _ENDPOINT = '/categories';
 
 export const CategoryService = {
+
     async list(): Promise<CategoryDTO[]> {
         const result = await api.get(_ENDPOINT);
-
         return result.data;
     },
 
@@ -25,7 +26,8 @@ export const CategoryService = {
         return result.data;
     },
 
-    async delete(id: string): Promise<void> {
+    async delete(id: string): Promise<void>{
         await api.delete(`${_ENDPOINT}/${id}`);
     }
-}
+
+};

@@ -5,9 +5,9 @@ import type { BrandDTO } from "../dto/brand.dto";
 const _ENDPOINT = '/brands';
 
 export const BrandService = {
+
     async list(): Promise<BrandDTO[]> {
         const result = await api.get(_ENDPOINT);
-
         return result.data;
     },
 
@@ -26,7 +26,8 @@ export const BrandService = {
         return result.data;
     },
 
-    async delete(id: string): Promise<void> {
+    async delete(id: string): Promise<void>{
         await api.delete(`${_ENDPOINT}/${id}`);
     }
-}
+
+};

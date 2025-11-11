@@ -1,28 +1,28 @@
 import type { ColumnDef } from "@tanstack/react-table";
+
 import { DataTableAction } from "@/components/layout/data-table-actions";
 import type { BrandDTO } from "../../dto/brand.dto";
 
-export const BrandColumns: ColumnDef<BrandDTO>[] = [
+export const brandColumns: ColumnDef<BrandDTO>[] = [
     {
         accessorKey: 'id',
         header: 'Id'
     },
-
     {
         accessorKey: 'name',
-        header: 'Nome da Brand'
+        header: 'Nome da Marca'
     },
-        {
-            accessorKey: 'actions',
-            enableHiding: false, 
-            cell: ({ row }) => {
-                const brand= row.original;
-    
-                return(
-                    <div className="flex justify-end mr-4">
-                        <DataTableAction itemId={brand.id!}/>
-                    </div>
-                )
-            }
+    {
+        id: 'actions',
+        enableHiding: false,
+        cell: ({ row }) => {
+            const brand = row.original;
+
+            return(
+                <div className="flex justify-end mr-4">
+                    <DataTableAction itemId={brand.id!} />
+                </div>
+            )
         }
-    ];
+    }
+];
